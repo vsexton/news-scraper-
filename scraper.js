@@ -1,12 +1,15 @@
 var axios = require("axios");
 var cheerio = require("cheerio");
+
+//import database
+
 var scrape = function(){
 
-    return axios.get("https://www.foxnews.com")
+    axios.get("https://www.foxnews.com")
     .then(function(res){
         const $ = cheerio.load(res.data);
         console.log("scraping this")
-        let aritcles = [];
+        let articles = [];
         $(".info").each(function(i, element){
             var title = $(element)
             .children(".info-header")
@@ -23,11 +26,12 @@ var scrape = function(){
                     link: link,
                     summary: summary
                 }
-                aritcles.push(data)
+                articles.push(data)
             }
         })
-        console.log(aritcles);
-        return aritcles;
+        console.log(articles);
+        // database insert code here and put the "return articles" in the callback
+        return articles;
     })
 }
-module.exports = scrape;
+module.exports = scrape; 
