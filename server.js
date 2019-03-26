@@ -56,7 +56,7 @@ app.get("/scrape", function (req, res) {
         })
         console.log(article);
         // database insert code here and put the "return mongoHeadliness" in the callback
-        db.mongoHeadlines.create(result)
+        mongoHeadlines.create(article)
         .then(function(article) {
           // View the added result in the console
           console.log(article);
@@ -78,7 +78,7 @@ app.get("/scrape", function (req, res) {
 // Route for getting all mongoHeadliness from the db
 app.get("/articles", function(req, res) {
     // Grab every document in the mongoHeadliness collection
-    db.mongoHeadlines.find({})
+    mongoHeadlines.find({})
       .then(function(dbmongoHeadlines) {
         // If we were able to successfully find mongoHeadliness, send them back to the client
         res.json(dbmongoHeadlines);
